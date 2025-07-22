@@ -1,0 +1,611 @@
+#%RAML 1.0
+title: MULTIPLE METHODS IN SAME RESOURCE
+version: V1
+baseUri: https://order-{env}-order-api/emplyee/v2/payments (post)
+
+/v2/payments:
+  post:
+    description: this resource is related to employee order
+    body:
+      application/json:
+        type: object
+        properties:
+          source:
+            required: true
+            type: string
+            maxLength: 60
+            minLength: 1
+            example: ecommerce
+          ordertype:
+            required: true
+            type: string
+            maxLength: 60
+            minLength: 1
+            example: delivered
+          firstname:
+            required: true
+            type: string
+            maxLength: 60
+            minLength: 1
+            example: john
+          lastname:
+            required: true
+            type: string
+            maxLength: 60
+            minLength: 1
+            example: nixon
+          phone:
+            required: true
+            type: integer
+            example: 3544656798
+          email:
+            required: true
+            type: string
+            maxLength: 60
+            minLength: 1
+            example: john@gmail.com
+          dateofbirth:
+            required: true
+            type: date-only
+            example: 1989-02-25
+          orderid:
+            required: true
+            type: string
+            maxLength: 60
+            minLength: 1
+            example: 201-235-458
+          nationalidtype:
+            required: true
+            type: string
+            maxLength: 60
+            minLength: 1
+            example: SSN
+          address:
+            type: object
+            properties:
+              address:
+                required: true
+                type: string
+                maxLength: 20
+                minLength: 1
+                example: 2345 avenue
+              city:
+                required: true
+                type: string
+                maxLength: 20
+                minLength: 1
+                example: washington
+              state:
+                required: true
+                type: string
+                maxLength: 20
+                minLength: 1
+                example: TX
+              postal:
+                required: true
+                type: string
+                example: 2005-00
+              country:
+                required: true
+                type: string
+                maxLength: 20
+                minLength: 1
+                example: USA
+        example: {
+          source: "ecommerce",
+          ordertype: "delivered",
+          firstname: "john",
+          lastname: "Nixon",
+          phone: 3544656798,
+          email: "john@gmail.com",
+          dateofbirth: "1989-02-25",
+          orderid: "201-235-458",
+          nationalidtype: "SSN",
+          address: {
+            address: "2345 Avenue",
+            city: "washington ",
+            state: "TX",
+            postal: "200-500",
+            country: "USA"
+          }
+        }
+    responses:
+        201:
+            body:
+              application/json:
+                type: object
+                properties:
+                  orderid:
+                    required: true
+                    type: string
+                    example: "77777"
+                example: {
+                  "orderid": "77777"
+                }
+        503:
+          body:
+            application/json:
+              type: object
+              properties:
+                code:
+                  required: true
+                  type: string
+                  example: "503"
+                message:
+                  required: true
+                  type: string
+                  example: service unavailable
+                description:
+                  required: true
+                  type: string
+                  example: The (upstream) service is temporarily not available
+                datetime:
+                  required: true
+                  type: string
+                  example: 2021-05-31T06:18:02Z
+                transactionid:
+                  required: true
+                  type: string
+                  example: 48n32920-69ne-47b4-907d-fa15869f3c4d
+              example: {
+                code: "503",
+                datetime: "2021-05-31T06:18:02Z",
+                description: "The (ustream) service is temporarily not available",
+                message: "service unavailable",
+                transactionid: "48n32920-69ne-47b4-907d-fa15869f3c4d"
+
+              }
+        400:
+          body:
+            application/json:
+              type: object
+              properties:
+                code:
+                  required: true
+                  type: string
+                  example: "400"
+                message:
+                  required: true
+                  type: string
+                  example: Bad request
+                description:
+                  required: true
+                  type: string
+                  example: required key orderid not found
+                datetime:
+                  required: true
+                  type: string
+                  example: 2021-05-29T05:58:02Z
+                transactionid:
+                  required: true
+                  type: string
+                  example: 44b32520-61ee-47b4-907d-fa15869f3c4d
+              example:  {
+                code: "400",
+                datetime: "2021-05-29T05:58:02Z",
+                description: "required key orderid not found",
+                message: "Bad request",
+                transactionid: "44b32520-61ee-47b4-907d-fa15869f3c4d"
+
+              }
+        500:
+          body:
+            application/json:
+              type: object
+              properties:
+                code:
+                  required: true
+                  type: string
+                  example: "500"
+                message:
+                  required: true
+                  type: string
+                  example: Internal server error
+                description:
+                  required: true
+                  type: string
+                  example: The server encountered an unexpected condition which prevented it from fulfilling the request
+                datetime:
+                  required: true
+                  type: string
+                  example: 2021-05-31T06:18:02Z
+                transactionid:
+                  required: true
+                  type: string
+                  example: 48n32920-69ne-47b4-907d-fa15869f3c4d
+              example:  {
+                code: "500",
+                datetime: "2021-05-31T06:18:02Z",
+                description: "The server encountered an unexpected condition which prevented it from fulfilling the request",
+                message: "Internal server error",
+                transactionid: "48n32920-69ne-47b4-907d-fa15869f3c4d"
+
+              }
+  put:
+    description: this resource is used to update details 
+    body:
+      application/xml:
+        type: object
+        xml:
+          name: ordertypes
+        properties:
+          orderID:
+            required: true
+            type: string
+            example: "7"
+          source:
+            required: true
+            type: string
+            example: ecommerce
+          orderType:
+            required: true
+            type: string
+            example: Ok
+          firstName:
+            required: true
+            type: string
+            example: John
+          lastName:
+            required: true
+            type: string
+            example: Nixon
+          phone:
+            required: true
+            type: string
+            example: 541-754-3010
+          email:
+            required: true
+            type: string
+            example: john@gmail.com
+          dateofBirth:
+            required: true
+            type: date-only
+            example: 1989-04-26
+          nationalIDType:
+            required: true
+            type: string
+            example: SSN
+          nationalID:
+             required: true
+             type: string
+             example: 209-49-6193
+          address:
+            type: object
+            properties:
+              streetAddress:
+                required: true
+                type: string
+                example: 1600 Pennsylvania Avenue NW
+              city:
+                required: true
+                type: string
+                example: Washington
+              state:
+                required: true
+                type: string
+                example: DC
+              postal:
+                required: true
+                type: string
+                example: 20-500
+              country:
+                required: true
+                type: string
+                example: USA
+        example: 
+              <?xml version="1.0" encoding="UTF-8" ?>
+              <ordertypes>
+                <orderID>7</orderID>
+                <source>ecommerce</source>
+                <orderType>ok</orderType>
+                <firstName>John</firstName>
+                <lastName>nixon</lastName>
+                <phone>541-754-3010</phone>
+                <email>john@gmail.com</email>
+                <dateofBirth>1989-04-25</dateofBirth>
+                <nationalID>209-49-6193</nationalID>
+                <nationalIDType>SSN</nationalIDType>
+               <address>
+                <streetAddress>1600 Pennsylvania Avenue NW</streetAddress>
+                <city>Washington</city>
+                <state>DC</state>
+                <postal>20-500></postal>
+                <country>USA</country>
+              </address>
+            </ordertypes>
+    responses:
+      200:
+        description: it gives the responses
+        body:
+          application/xml:
+            type: object
+            xml:
+              name: order
+            properties:
+              orderID:
+                required: true
+                type: string
+                example: "3673673"
+            example: 
+                  <?xml version="1.0" encoding="UTF-8" ?>
+                  <order>
+                      <orderID>36673</orderID>
+                  </order>
+
+/{oderID}:
+  get:
+    description: it can get the order details
+    responses:
+      200:
+        body:
+          application/json:
+            type: array
+            items:
+              type: object
+              properties:
+               orderID:
+                 required: true
+                 type: string
+                 example: 74-65
+               source:
+                 required: true
+                 type: string
+                 example: ecommerce
+               orderType:
+                 required: true
+                 type: string
+                 example: Ok
+               firstName:
+                required: true
+                type: string
+                example: John
+               lastName:
+                 required: true
+                 type: string
+                 example: Nixon
+               phone:
+                 required: true
+                 type: string
+                 example: 14652-6
+               email:
+                 required: true
+                 type: string
+                 example: john@gmail.com
+               dateofBirth:
+                 required: true
+                 type: date-only
+                 example: 1998-09-25
+               nationalIDType:
+                 required: true
+                 type: string
+                 example: SSN
+               nationalID:
+                 required: true
+                 type: string
+                 example: 649-67
+               address:
+                type: object
+                properties:
+                 streetAddress:
+                  required: true
+                  type: string
+                  example: 1600 Pennsylvania Avenue NW
+                 city:
+                  required: true
+                  type: string
+                  example: Washington
+                 state:
+                  required: true
+                  type: string
+                  example: DC
+                 postal:
+                  required: true
+                  type: string
+                  example: 20-500
+                 country:
+                  required: true
+                  type: string
+                  example: USA
+            example: 
+              [
+                    {
+                        source: "ecommerce",
+                        orderID: "456464",
+                        orderType: "type",
+                        firstName: "John",
+                        lastName: "Nixon",
+                        phone: "541-754-3010",
+                        email: "john@gmail.com",
+                        dateofBirth: "1989-04-26",
+                        nationalID: "209-49-6193",
+                        nationalIDType: "SSN",
+                        address: {
+                          streetAddress: "Avenue NW",
+                          city: "Washington",
+                          state: "DC",
+                          postal: "20500",
+                          country: "USA"
+                        }
+                    },
+                    {
+                        source: "ecommerce",
+                        orderID: "528293",
+                        orderType: "negative",
+                        firstName: "John",
+                        lastName: "Nixon",
+                        phone: "541-754-3010",
+                        email: "john@gmail.com",
+                        dateofBirth: "1989-04-26",
+                        nationalID: "209-49-6193",
+                        nationalIDType: "SSN",
+                        address: {
+                          streetAddress: "1600 NW",
+                          city: "Washington",
+                          state: "DC",
+                          postal: "20500",
+                          country: "USA"
+                        }
+                    }
+              ]
+      404:
+        body:
+          application/json:
+            type: object
+            properties:
+              code:
+                required: true
+                type: string
+                example: "404"
+              message:
+                required: true
+                type: string
+                example: resource not found
+              description:
+                required: true
+                type: string
+                example: The server has not found anything matching the Request-URI
+              dateTime:
+                required: true
+                type: string
+                example: 2021-05-31T06:18:02Z
+              transactionID:
+                required: true
+                type: string
+                example: 48n32920-69ne-47b4-907d-fa15869f3c4d
+            example:
+              {
+            "code": "404",
+            "dateTime": "2021-05-31T06:18:02Z",
+            "message": "resource not found",
+            "description": "The server has not found anything matching the Request-URI",
+            "transactionID": "48n32920-69ne-47b4-907d-fa15869f3c4d"
+          }
+    
+      503:
+        body:
+              application/json:
+                    type: object
+                    properties:
+                      code:
+                        required: true
+                        type: string
+                        example: "503"
+                      message:
+                        required: true
+                        type: string
+                        example: Service unavailable
+                      description:
+                        required: true
+                        type: string
+                        example: The (upstream) service is temporarily   not available
+                      dateTime:
+                        required: true
+                        type: string
+                        example: 2021-05-31T06:18:02Z
+                      transactionID:
+                        required: true
+                        type: string
+                        example: 48n32920-69ne-47b4-907d-fa15869f3c4d
+                    example:
+                      {
+                    "code": "503",
+            "dateTime": "2021-05-31T06:18:02Z",
+            "message": "Service unavailable",
+            "description": "The (upstream) service is temporarily   not available",
+            "transactionID": "48n32920-69ne-47b4-907d-fa15869f3c4d"
+                    }
+                
+      500:
+        body:
+          application/json:
+            type: object
+            properties:
+              code:
+                required: true
+                type: string
+                example: "500"
+              message:
+                required: true
+                type: string
+                example: Internal server error
+              description:
+                required: true
+                type: string
+                example: The server encountered an unexpected condition which prevented it from fulfilling the request
+              dateTime:
+                required: true
+                type: string
+                example: 2021-05-31T06:18:02Z
+              transactionID:
+                required: true
+                type: string
+                example: 48n32920-69ne-47b4-907d-fa15869f3c4d
+            example:
+              {
+            "code": "500",
+            "dateTime": "2021-05-31T06:18:02Z",
+            "message": "Internal server error",
+            "description": "The server encountered an unexpected condition which prevented it from fulfilling the request",
+            "transactionID": "48n32920-69ne-47b4-907d-fa15869f3c4d"
+                    }
+/placeorder:
+  description: orders report
+  get:
+    queryParameters:
+      state:
+        required: true
+        type: string
+        example: US
+    responses:
+      200:
+        body:          
+          application/json:
+            type: array
+            items:
+              type: object
+              properties:
+                state:
+                  type: string
+                  example: texas
+                order:
+                  type: object
+                  properties:
+                    total:
+                     type: number
+                     example: 46744
+                    orderID:
+                      type: number
+                      example: 436744
+                    totalNumbers:
+                      type: number
+                      example: 433744
+                    Id:
+                      type: number
+                      example: 300
+                    members:
+                      type: number
+                      example: 7847848
+            example: 
+              [
+                {
+                  "state": "texas",
+                  "order": {
+                    "total": 46744,
+                    "orderID": 436744,
+                    "totalNumbers": 433744,
+                    "Id": 300,
+                    "members": 7847848
+                }
+               }
+              ]
+        
+        
+                
+          
+          
+
+        
+                        
+
+
+             
